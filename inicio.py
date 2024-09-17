@@ -8,19 +8,21 @@ def index():
     return render_template('index.html') 
 
 @app.route('/autenticar',methods=['POST','GET'])
-Def autenticar():
-    if request.method =='POST':
+def autenticar():
+    if request.method == 'POST':
+        usuario = request.form['usuario']
         if request.form['senha'] == 'senac' and request.form['usuario'] =='walter':
+            session['usuario_logado'] = request.form['usuario']
             return 'logado com sucesso'
         else:
             return 'erro na autenticacao'
 
 @app.route('/logout')
-def saur():
+def sair():
     session.pop('usuario_logodo',None)
     return redirect(url_for('index'))
 
-app.run(debug.true)
+
 
 
 @app.route('/novofuncionario')
